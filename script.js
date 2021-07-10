@@ -8,7 +8,8 @@ const Clock  = (props) => {
 }
 
 const Counter = (props) => {
-	const [count, setCount] = React.useState(0);
+	const {initialCount} = props;
+	const [count, setCount] = React.useState(initialCount);
 	return (<div>
 		<p>Count: {count}</p>
 		<button onClick={() => setCount(count + 1)}>Increment count</button>
@@ -18,7 +19,7 @@ const Counter = (props) => {
 const App = () => {
 	return (<>
 		<div id="clock"></div>
-		<Counter/>
+		<Counter initialCount={2}/>
 	</>);
 };
 
