@@ -10,6 +10,17 @@ const Clock  = (props) => {
 const Counter = (props) => {
 	const {initialCount} = props;
 	const [count, setCount] = React.useState(initialCount);
+	React.useEffect(()=>{
+		//console.log(`just logged, for a count of ${count}`);
+		const timerId = setInterval(()=>{
+			console.log(`logging, from when a count of ${count}`);
+		}, 2000);
+
+		//run cleanup
+		return () => {
+			clearInterval(timerId);
+		};
+	});
 	return (<div>
 		<p>Count: {count}</p>
 		<button onClick={() => setCount(count + 1)}>Increment count</button>
