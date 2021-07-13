@@ -28,10 +28,19 @@ const Counter = (props) => {
 		};
 	});
 	return (
-		<div>
+		<div className="counter">
 			<p>Count: {count}</p>
 			<button onClick={() => setCount(count + 1)}>Increment count</button>
 		</div>
+	);
+};
+
+const List = (props) => {
+	const maxNum = props.maxNum;
+	const list = Array.from(Array(maxNum).keys());
+	const listItems = list.map((e,i)=> <li key={e}>Item #{i}</li>);
+	return (
+			<ul className="list">{listItems}</ul>
 	);
 };
 
@@ -39,6 +48,7 @@ const App = () => {
 	return (<>
 		<Clock date={Date()}/>
 		<Counter initialCount={2}/>
+		<List maxNum={5}/>
 	</>);
 };
 
