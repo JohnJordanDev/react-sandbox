@@ -44,11 +44,44 @@ const List = (props) => {
 	);
 };
 
+
+const Form = (props) => {
+
+	const initialState = {
+		"first-name": "",
+		textarea: "",
+		select: ""
+	};
+	const [state, setState] = React.useState(initialState);
+	
+	const submitHandler = (e) => {
+		e.preventDefault();
+		console.log('state on submission is: ', state);
+	}
+	const changeHandler = (e) => {
+
+	};
+	return (
+		<form onSubmit={submitHandler} className="form">
+			<label htmlFor="first_name">First Name:</label>
+			<input name="first-name" id="first_name" type="text" onChange={changeHandler}/>
+			<label htmlFor="write_stuff">Write stuff:</label>
+			<textarea name="textarea" id="write_stuff" cols="30" rows="5"/>
+			<label htmlFor="fruit">Favorite fruit:</label>
+			<select name="select" id="fruit">
+				<option value="apple">Apple</option>
+				<option value="orange">Orange</option>
+			</select>
+			<input type="submit" value="Submit"/>
+		</form>);
+};
+
 const App = () => {
 	return (<>
 		<Clock date={Date()}/>
 		<Counter initialCount={2}/>
 		<List maxNum={5}/>
+		<Form />
 	</>);
 };
 
