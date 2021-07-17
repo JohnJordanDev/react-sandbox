@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
+/* global React, ReactDOM */
 
 const Clock = (props) => {
   const { date } = props;
@@ -60,66 +61,12 @@ const List = (props) => {
   );
 };
 
-const Input = () => {
-  const [state, setState] = React.useState({ name: "", focus: false });
-  const changeHandler = (e) => {
-    const { target } = e;
-    setState((prev) => ({ ...prev, ...{ name: target.value } }));
-  };
-  const focusHandler = () => {
-    setState((prev) => ({ ...prev, ...{ focus: true } }));
-  };
-  const blurHandler = () => {
-    setState((prev) => ({ ...prev, ...{ focus: false } }));
-  };
-  console.log("input rendering with value of: ", state);
-  return (
-    <>
-      <label htmlFor="first_name">First Name:</label>
-      <input name="first-name" id="first_name" type="text" onChange={changeHandler} onFocus={focusHandler} onBlur={blurHandler} value={state.name} />
-      <div style={{ display: state.focus ? "block" : "none" }}>In focus!</div>
-    </>
-  );
-};
-
-const Form = () => {
-  const [state, setState] = React.useState({
-    textarea: "",
-    select: "orange"
-  });
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    console.log("state on submission is: ", state);
-  };
-
-  const changeHandler = (e) => {
-    const { target } = e;
-    setState((prev) => ({ ...prev, ...{ [target.name]: target.value } }));
-  };
-  console.log("rendering the Form component...");
-  return (
-    <form onSubmit={submitHandler} className="form">
-      <Input />
-      <label htmlFor="write_stuff">Write stuff:</label>
-      <textarea name="textarea" id="write_stuff" cols="30" rows="5" onChange={changeHandler} value={state.textarea} />
-      <label htmlFor="fruit">Favorite fruit:</label>
-      <select name="select" id="fruit" onChange={changeHandler} value={state.select}>
-        <option value="apple">Apple</option>
-        <option value="orange">Orange</option>
-        <option value="banana">Banana</option>
-      </select>
-      <input type="submit" value="Submit" />
-    </form>
-  );
-};
-
 const App = () => (
   <>
     <Clock date={Date()} />
     <Counter initialCount={2} />
     <List maxNum={5} />
-    <Form />
+    <div id="target_form" />
   </>
 );
 
