@@ -47,19 +47,30 @@ const Counter = (props) => {
   );
 };
 
-const List = (props) => {
-  const { maxNum } = props;
-  const list = Array.from(Array(maxNum).keys());
-  const listItems = list.map((e, i) => (
-    <li key={e}>
-      Item #
-      {i}
-    </li>
-  ));
-  return (
-    <ul className="list">{listItems}</ul>
-  );
-};
+class List extends React.Component {
+  constructor(props) {
+    super(props);
+    this.maxNum = props.maxNum;
+    this.getListItems = this.getListItems.bind(this);
+  }
+
+  getListItems() {
+    const list = Array.from(Array(this.maxNum).keys());
+
+    return list.map((e, i) => (
+      <li key={e}>
+        Item #
+        {i}
+      </li>
+    ));
+  }
+
+  render() {
+    return (
+      <ul className="list">{this.getListItems()}</ul>
+    );
+  }
+}
 
 const App = () => (
   <>
