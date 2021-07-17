@@ -61,6 +61,22 @@ SubmitMessage.propTypes = {
     resetForm: PropTypes.func.isRequired
 };
 
+const Form = (props) => {
+    const { cssClass, children, submitHandler } = props;
+    return (
+      <form onSubmit={submitHandler} className={cssClass}>
+        {children}
+        <button type="submit">Submit</button>
+      </form>
+    );
+  };
+
+Form.propTypes = {
+    cssClass: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    submitHandler: PropTypes.func.isRequired
+};
+
 const FormHandler = () => {
   const [state, setState] = React.useState({
     firstName: {
@@ -99,10 +115,9 @@ const FormHandler = () => {
           <SubmitMessage submitValue={state.firstName.value} resetForm={resetForm} />
         )
         : (
-          <form onSubmit={submitHandler} className="form">
+          <Form submitHandler={submitHandler} cssClass="form">
             <Input firstName={state.firstName.value} inFocus={false} onBlur={blurHandler} updateTempStore={updateTempStore} />
-            <button type="submit">Submit</button>
-          </form>
+          </Form>
         )}
     </>
 
