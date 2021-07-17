@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/react-in-jsx-scope */
@@ -7,7 +8,6 @@ const Input = (props) => {
   const { firstName, inFocus, updateTempStore } = props;
   const [state, setState] = React.useState({ firstName, inFocus });
   const changeHandler = (e) => {
-    console.log(state);
     setState((prev) => ({ ...prev, ...{ firstName: e.target.value } }));
     updateTempStore("firstName", "value", e.target.value);
   };
@@ -49,7 +49,19 @@ Input.propTypes = {
       </select>
     */ }
 
-const Form = () => {
+const SubmitMessage = ({ submitValue, resetForm }) => (
+  <div>
+    Submitted! with data:
+    { ` ${submitValue}` }
+    <button type="button" onClick={resetForm}> reset form </button>
+  </div>
+);
+SubmitMessage.propTypes = {
+    submitValue: PropTypes.string.isRequired,
+    resetForm: PropTypes.func.isRequired
+};
+
+const FormHandler = () => {
   const [state, setState] = React.useState({
     firstName: {
       value: "",
@@ -73,26 +85,21 @@ const Form = () => {
 
   const blurHandler = (e) => {
     const { target } = e;
-    // TODO: only setState if an actual change
     setState((prev) => ({ ...prev, ...{ [target.name]: target.value } }));
   };
 
   const resetForm = () => {
     setState((prev) => ({ ...prev, submitted: false }));
   };
+
   return (
     <>
       { state.submitted
         ? (
-          <div>
-            Submitted! with data:
-            { ` ${state.firstName.value}` }
-            <button type="button" onClick={resetForm}>X</button>
-          </div>
+          <SubmitMessage submitValue={state.firstName.value} resetForm={resetForm} />
         )
         : (
           <form onSubmit={submitHandler} className="form">
-
             <Input firstName={state.firstName.value} inFocus={false} onBlur={blurHandler} updateTempStore={updateTempStore} />
             <button type="submit">Submit</button>
           </form>
@@ -102,4 +109,4 @@ const Form = () => {
   );
 };
 
-ReactDOM.render(<Form />, document.getElementById("target_form"));
+ReactDOM.render(<FormHandler />, document.getElementById("target_form"));
